@@ -1,0 +1,77 @@
+body{
+  background-color: black !important;
+  font-family: 'Roboto', sans-serif;
+}
+#msg
+{
+  margin-right: 20px;
+}
+.title{
+  letter-spacing: 2px;
+  color: #c5c8cc;
+}
+.slogan{
+  letter-spacing: 1px;
+  color: #c5c8cc;
+  font-size: 12px;
+}
+.content{
+  margin: 8px;
+  padding: 5px;
+  /* border: 1px solid white; */
+  border-right: 1px solid gray;
+}
+.messages{
+  /* border: 1px solid white !important; */
+  height: 500px;
+  overflow-y: scroll;
+  resize: none;
+}
+.information{
+  margin-top: 20px;
+}
+.croom{
+  border-bottom: 1px solid gray;
+}
+.log{
+  margin-top: inherit;
+}
+p{
+  text-decoration-color: #c5c8cc;
+}
+.ip{
+  /* border: None !important; */
+  text-decoration-color: white;
+  background: None !important;
+  outline: 0px !important;
+  outline-color: None !important;
+}
+input:focus{
+  outline: None !important;
+}
+
+.chat {
+    width: 400px;
+}
+
+.bubble{
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+}
+
+#login{
+  position: absolute;
+  top:50%;
+  left:50%;
+  padding:15px;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+	margin: auto;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type= "text/css" href={{ url_for('static', filename="main.css")}}>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="https://dl.dropbox.com/s/ve3vy4fhk9xnotu/paper-full.js?dl=0"></script>
+    <title>
+      E2EE - End to End Encryption
+    </title>
+    <script type="text/paperscript" canvas="myCanvas">
+      var width, height, center;
+var points = 10;
+var smooth = true;
+var path = new Path();
+var mousePos = view.center / 2;
+var pathHeight = mousePos.y;
+path.fillColor = 'white';
+initializePath();
+
+function initializePath() {
+center = view.center;
+width = view.size.width;
+height = view.size.height / 2;
+path.segments = [];
+path.add(view.bounds.bottomLeft);
+for (var i = 1; i < points; i++) {
+  var point = new Point(width / points * i, center.y);
+  path.add(point);
+}
+path.add(view.bounds.bottomRight);
+path.fullySelected = true;
+}
+
+function onFrame(event) {
+pathHeight += (center.y - mousePos.y - pathHeight) / 10;
+for (var i = 1; i < points; i++) {
+  var sinSeed = event.count + (i + i % 10) * 100;
+  var sinHeight = Math.sin(sinSeed / 200) * pathHeight;
+  var yPos = Math.sin(sinSeed / 100) * sinHeight + height;
+  path.segments[i].point.y = yPos;
+}
+if (smooth)
+  path.smooth({ type: 'continuous' });
+}
+
+function onMouseMove(event) {
+mousePos = event.point;
+}
+
+function onMouseDown(event) {
+smooth = !smooth;
+if (!smooth) {
+  // If smooth has been turned off, we need to reset
+  // the handles of the path:
+  for (var i = 0, l = path.segments.length; i < l; i++) {
+    var segment = path.segments[i];
+    segment.handleIn = segment.handleOut = null;
+  }
+}
+}
+// Reposition the path whenever the window is resized:
+function onResize(event) {
+initializePath();
+}
+    </script>
+  </head>
+  <body>
+    <canvas style="height:100%; width:100%; position:absolute;" id="myCanvas" resize>
+    </canvas>
+    <div id="login" class="container">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Log in</h5>
+          <h6 class="card-subtitle mb-2 text-muted">To generate a shared secret</h6>
+
+          <form action="/index.html">
+            <label for="validationDefault01">Username</label>
+            <input type="text" class="form-control" id="validationDefault01" placeholder="burhankhom" name="user" required><br>
+            <label for="validationDefault02">Room ID</label>
+            <input type="text" class="form-control" id="validationDefault02" placeholder="909" name="rid" required>
+            <input type="submit" value="Login">
+        </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
